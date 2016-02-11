@@ -1,4 +1,14 @@
 #!/usr/bin/env perl
+#####################################################################
+#                                                                   #
+# Synchronizes active  DHCP  leases with the  specified forward and #
+# reverse zones, including removing DNS entries for expired leases. #
+#                                                                   #
+# Version 1.0 by Nate Lindstrom <nlindstrom@ns1.com>                #
+#                                                                   #
+# Copyright (c) 2016 NS1, all rights reserved.                      #
+#                                                                   #
+#####################################################################
 
 use strict;
 use warnings;
@@ -15,8 +25,10 @@ my $dhcpd_leases_file = "/var/lib/dhcpd/dhcpd.leases";
 my $api_key;
 my $forward_zone;
 my $reverse_zone;
+my $help;
 
 GetOptions (
+    "help"           => \$help,
     "verbose"        => \$verbose,
     "leases-file=s"  => \$dhcpd_leases_file,
     "api-key=s"      => \$api_key,
@@ -24,12 +36,9 @@ GetOptions (
     "reverse-zone=s" => \$reverse_zone
 );
 
-$forward_zone =~ s/\.$//;
-$reverse_zone =~ s/\.$//;
-$reverse_zone =~ s/\.in-addr\.arpa//;
-
-unless (($dhcpd_leases_file) and ($api_key) and ($forward_zone) and ($reverse_zone)) {
+unless (( ! $help) and ($dhcpd_leases_file) and ($api_key) and ($forward_zone) and ($reverse_zone)) {
     print "Usage: $0 [--verbose] [--leases-file=<file>] --api-key=<key> --forward-zone=<zone> --reverse-zone=<zone>\n\n";
+    print "Synchronizes active DHCP leases with the specified forward and reverse zones, including removing DNS entries for expired leases.\n\n";
     print "--verbose      Enables verbose output. Default is no output, suitable for use in a crontab.\n";
     print "--leases-file  Overrides the default DHCP server leases file location of $dhcpd_leases_file.\n";;
     print "--api-key      Sets the API key to be used for authenticating to the NS1 API.\n";
@@ -38,6 +47,10 @@ unless (($dhcpd_leases_file) and ($api_key) and ($forward_zone) and ($reverse_zo
 
     exit 1;
 }
+
+$forward_zone =~ s/\.$//;
+$reverse_zone =~ s/\.$//;
+$reverse_zone =~ s/\.in-addr\.arpa//;
 
 $ua->default_header ('X-NSONE-Key' => $api_key);
 
