@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 #########################################################################
 #                                                                       #
-# Synchronizes active  DHCP  leases with the  specified forward and     #
+# Synchronizes active DHCP leases with the specified forward and        #
 # reverse zones, including removing DNS entries for expired leases.     #
 #                                                                       #
 # Copyright (c) NS1, version 1.0 by Nate Lindstrom <nlindstrom@ns1.com> #
