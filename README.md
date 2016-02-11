@@ -14,6 +14,8 @@ Add it to `root`'s crontab so it executes frequently, ideally every minute:
 
 `ns1-dhcpd-ddns-sync.pl` assumes that the DHCP server keeps track of active leases in the file `/var/lib/dhcpd/dhcpd.leases`.  If this is not the case, then you can tell `ns1-dhcpd-ddns-sync.pl` where to find the DHCP leases file with the optional `--leases-file=<file>` parameter.
 
+`ns1-dhcpd-ddns-sync.pl` uses the `Getopt::Long` and `LWP::UserAgent` CPAN modules, which are installed by default on most Linux systems.  However, if your Perl distribution complains that it could not find one or both modules, you can install them via: `sudo perl -MCPAN -e 'install <module>'`.
+
 ### Usage
 If you need to troubleshoot the synchronization process between your DHCP server and NS1, you can manually run `ns1-dhcpd-ddns-sync.pl` with the ``--verbose`` parameter, like so:
 
