@@ -1,4 +1,8 @@
 # ns1-dhcpd-ddns-sync
+> This project is [deprecated](https://github.com/ns1/community/blob/master/project_status/DEPRECATED.md)
+> and should not be expected to work properly.
+> If you are using this, it's recommended to take a look at [NS1 DDI](https://ns1.com/products/enterprise-ddi).
+
 Tool to synchronize NS1 DNS record management with an ISC DHCPD server
 
 ### Installation
